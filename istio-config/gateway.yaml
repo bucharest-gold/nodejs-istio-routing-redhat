@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: nodejs-istio-routing-gateway
+  name: nodejs-istio-routing-redhat-gateway
 spec:
   selector:
     istio: ingressgateway # use istio default controller
@@ -16,32 +16,32 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: nodejs-istio-routing-client
+  name: nodejs-istio-routing-redhat-client
 spec:
   hosts:
   - "*"
   gateways:
-  - nodejs-istio-routing-gateway
+  - nodejs-istio-routing-redhat-gateway
   http:
   - match:
     - uri:
-        prefix: /nodejs-istio-routing/
+        prefix: /nodejs-istio-routing-redhat/
     - uri:
-        prefix: /nodejs-istio-routing
+        prefix: /nodejs-istio-routing-redhat
     rewrite:
       uri: /
     route:
     - destination:
-        host: nodejs-istio-routing-client
+        host: nodejs-istio-routing-redhat-client
         port:
           number: 8080
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: nodejs-istio-routing-service
+  name: nodejs-istio-routing-redhat-service
 spec:
-  host: nodejs-istio-routing-service
+  host: nodejs-istio-routing-redhat-service
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL
