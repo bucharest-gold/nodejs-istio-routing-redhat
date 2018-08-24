@@ -32,9 +32,9 @@ Run the following commands to apply and execute the OpenShift templates that wil
 ```bash
 find . | grep openshiftio | grep application | xargs -n 1 oc apply -f
 
-oc new-app --template=nodejs-istio-routing-client-service -p SOURCE_REPOSITORY_URL=https://github.com/bucharest-gold/nodejs-istio-routing -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=routing-client
-oc new-app --template=nodejs-istio-routing-service-a-service -p SOURCE_REPOSITORY_URL=https://github.com/bucharest-gold/nodejs-istio-routing -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=routing-service-a
-oc new-app --template=nodejs-istio-routing-service-b-service -p SOURCE_REPOSITORY_URL=https://github.com/bucharest-gold/nodejs-istio-routing -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=routing-service-b
+oc new-app --template=nodejs-istio-routing-redhat-client-service -p SOURCE_REPOSITORY_URL=https://github.com/bucharest-gold/nodejs-istio-routing-redhat -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=routing-client
+oc new-app --template=nodejs-istio-routing-redhat-service-a-service -p SOURCE_REPOSITORY_URL=https://github.com/bucharest-gold/nodejs-istio-routing-redhat-redhat -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=routing-service-a
+oc new-app --template=nodejs-istio-routing-redhat-service-b-service -p SOURCE_REPOSITORY_URL=https://github.com/bucharest-gold/nodejs-istio-routing-redhat -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=routing-service-b
 ```
 
 
@@ -49,7 +49,7 @@ Any steps issuing `oc` commands require the user to have run `oc login` first an
     ```
 2. Retrieve the URL for the Istio Ingress Gateway route, with the below command, and open it in a web browser.
     ```
-    echo http://$(oc get route istio-ingressgateway -o jsonpath='{.spec.host}{"\n"}' -n istio-system)/nodejs-istio-routing
+    echo http://$(oc get route istio-ingressgateway -o jsonpath='{.spec.host}{"\n"}' -n istio-system)/nodejs-istio-routing-redhat-redhat
     ```
 3. The user will be presented with the web page of the Booster
 4. Click the "Invoke" button. You should see a message in the result box indicating which service instance was called.

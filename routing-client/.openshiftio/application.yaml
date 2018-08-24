@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: nodejs-istio-routing-client-service
+  name: nodejs-istio-routing-redhat-client-service
   annotations:
     description: The Istio Routing Mission shows routing with Istio
     tags: nodejs, routing
@@ -30,27 +30,27 @@ objects:
 - apiVersion: v1
   kind: ImageStream
   metadata:
-    name: nodejs-istio-routing-client
+    name: nodejs-istio-routing-redhat-client
   spec: {}
 - apiVersion: v1
   kind: ImageStream
   metadata:
-    name: nodejs-istio-routing-client-runtime
+    name: nodejs-istio-routing-redhat-client-runtime
   spec:
     tags:
     - name: latest
       from:
         kind: DockerImage
-        name: 'bucharestgold/centos7-s2i-nodejs:10.x'
+        name: 'registry.access.redhat.com/rhoar-nodejs/nodejs-10:latest'
 - apiVersion: v1
   kind: BuildConfig
   metadata:
-    name: nodejs-istio-routing-client
+    name: nodejs-istio-routing-redhat-client
   spec:
     output:
       to:
         kind: ImageStreamTag
-        name: nodejs-istio-routing-client:latest
+        name: nodejs-istio-routing-redhat-client:latest
     postCommit: {}
     resources: {}
     source:
@@ -64,7 +64,7 @@ objects:
       sourceStrategy:
         from:
           kind: ImageStreamTag
-          name: nodejs-istio-routing-client-runtime:latest
+          name: nodejs-istio-routing-redhat-client-runtime:latest
         incremental: true
     triggers:
     - github:
@@ -85,24 +85,24 @@ objects:
         targetPort: 8080
     type: ClusterIP
     selector:
-      project: nodejs-istio-routing-client
+      project: nodejs-istio-routing-redhat-client
       provider: nodeshift
   metadata:
-    name: nodejs-istio-routing-client
+    name: nodejs-istio-routing-redhat-client
     labels:
       provider: nodeshift
       expose: 'true'
-      project: nodejs-istio-routing-client
-      version: 2.1.0
+      project: nodejs-istio-routing-redhat-client
+      version: 2.0.0
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
-    name: nodejs-istio-routing-client
+    name: nodejs-istio-routing-redhat-client
     labels:
-      app: nodejs-istio-routing-client
+      app: nodejs-istio-routing-redhat-client
       provider: nodeshift
-      project: nodejs-istio-routing-client
-      version: 2.1.0
+      project: nodejs-istio-routing-redhat-client
+      version: 2.0.0
   spec:
     template:
       spec:
@@ -119,8 +119,8 @@ objects:
                 - curl
                 - http://localhost:8080/api/health/liveness
               initialDelaySeconds: 180
-            image: nodejs-istio-routing-client
-            name: nodejs-istio-routing-client
+            image: nodejs-istio-routing-redhat-client
+            name: nodejs-istio-routing-redhat-client
             securityContext:
               privileged: false
             ports:
@@ -131,14 +131,14 @@ objects:
         annotations:
           sidecar.istio.io/inject: "true"
         labels:
-          app: nodejs-istio-routing-client
-          project: nodejs-istio-routing-client
+          app: nodejs-istio-routing-redhat-client
+          project: nodejs-istio-routing-redhat-client
           provider: nodeshift
-          version: 2.1.0
+          version: 2.0.0
     replicas: 1
     selector:
-      app: nodejs-istio-routing-client
-      project: nodejs-istio-routing-client
+      app: nodejs-istio-routing-redhat-client
+      project: nodejs-istio-routing-redhat-client
       provider: nodeshift
     triggers:
       - type: ConfigChange
@@ -146,7 +146,7 @@ objects:
         imageChangeParams:
           automatic: true
           containerNames:
-            - nodejs-istio-routing-client
+            - nodejs-istio-routing-redhat-client
           from:
             kind: ImageStreamTag
-            name: 'nodejs-istio-routing-client:latest'
+            name: 'nodejs-istio-routing-redhat-client:latest'
