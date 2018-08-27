@@ -32,9 +32,9 @@ Run the following commands to apply and execute the OpenShift templates that wil
 ```bash
 find . | grep openshiftio | grep application | xargs -n 1 oc apply -f
 
-oc new-app --template=nodejs-istio-routing-redhat-client-service -p SOURCE_REPOSITORY_URL=https://github.com/bucharest-gold/nodejs-istio-routing-redhat -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=routing-client
-oc new-app --template=nodejs-istio-routing-redhat-service-a-service -p SOURCE_REPOSITORY_URL=https://github.com/bucharest-gold/nodejs-istio-routing-redhat -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=routing-service-a
-oc new-app --template=nodejs-istio-routing-redhat-service-b-service -p SOURCE_REPOSITORY_URL=https://github.com/bucharest-gold/nodejs-istio-routing-redhat -p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_DIR=routing-service-b
+oc new-app --template=nodejs-istio-routing-redhat-client-service -p SOURCE_REPOSITORY_URL=https://github.com/bucharest-gold/nodejs-istio-routing-redhat -p SOURCE_REPOSITORY_REF=8.x -p SOURCE_REPOSITORY_DIR=routing-client
+oc new-app --template=nodejs-istio-routing-redhat-service-a-service -p SOURCE_REPOSITORY_URL=https://github.com/bucharest-gold/nodejs-istio-routing-redhat -p SOURCE_REPOSITORY_REF=8.x -p SOURCE_REPOSITORY_DIR=routing-service-a
+oc new-app --template=nodejs-istio-routing-redhat-service-b-service -p SOURCE_REPOSITORY_URL=https://github.com/bucharest-gold/nodejs-istio-routing-redhat -p SOURCE_REPOSITORY_REF=8.x -p SOURCE_REPOSITORY_DIR=routing-service-b
 ```
 
 
